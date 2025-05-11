@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -64,8 +65,14 @@ WSGI_APPLICATION = 'cmproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.getenv("CMAPP_DATABASES_ENGINE",
+                            default='django.db.backends.sqlite3'),
+        'NAME': os.getenv("CMAPP_DATABASES_NAME",
+                          default=BASE_DIR / 'db.sqlite3'),
+        'USER': os.getenv("CMAPP_DATABASES_USER", default='user'),
+        'PASSWORD': os.getenv("CMAPP_DATABASES_PASS", default=''),
+        'HOST': os.getenv("CMAPP_DATABASES_HOST", default='localhost'),
+        'PORT': os.getenv("CMAPP_DATABASES_PORT", default='')
     }
 }
 

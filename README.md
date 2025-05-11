@@ -25,6 +25,7 @@ The backend should be able to:
 - Create a Virtual Environment using the command "python3 -m venv ./venv"
 - Activate the Virtual Environment using the command "source ./venv/bin/activate"
 - Install the required Python modules using the command "pip install -r requirements.txt"
+- Change to the cmproject directory
 - Run Django server using command "python manage.py runserver"
 
 # Accessing the API Endpoints
@@ -35,3 +36,13 @@ Lists all tasks when used with the GET method. Using the POST method a new task 
 
 - /api/v1/task/(id)
 Replace id with the interget id of the task. The GET method returns the task details. The PUT method updates the task details. The DELETE method deletes the task.
+
+# Environment Variables
+Environment variables are used for database connectivity. If the variables do not exist the app falls back to a SQLite database.
+
+- CMAPP_DATABASES_ENGINE
+- CMAPP_DATABASES_NAME
+- CMAPP_DATABASES_USER
+- CMAPP_DATABASES_PASS
+- CMAPP_DATABASES_HOST
+- CMAPP_DATABASES_PORT
