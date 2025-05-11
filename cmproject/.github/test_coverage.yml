@@ -1,0 +1,39 @@
+name: Test Coverage Check
+
+on:
+  push:
+    branches-ignore:
+      - "main"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.11"]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Coverage
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install -r requirements.txt
+        python -m pip install coverage
+    - name: Run Coverage
+      id: score
+      run: |
+        cd cmapp
+        coverage run --source='.' manage.py test
+        echo "score=$(coverage report --format=total)" >> "$GITHUB_OUTPUT"       
+    - name: Set MinScore Variable
+      id: MinScore
+      run: |
+        echo "MinScore=75" >> "$GITHUB_OUTPUT"
+    - name: Compare score and MinScore
+      run: |
+        if [[ ${{ steps.score.outputs.score }} < ${{ steps.MinScore.outputs.MinScore }} ]]; then exit 1; else exit 0; fi
