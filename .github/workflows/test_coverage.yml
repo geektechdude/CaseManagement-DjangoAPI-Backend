@@ -27,7 +27,7 @@ jobs:
     - name: Run Coverage
       id: score
       run: |
-        cd cmapp
+        cd cmproject
         coverage run --source='.' manage.py test
         echo "score=$(coverage report --format=total)" >> "$GITHUB_OUTPUT"       
     - name: Set MinScore Variable

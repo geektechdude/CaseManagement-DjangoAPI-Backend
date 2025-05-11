@@ -25,5 +25,5 @@ jobs:
         python -m pip install -r requirements.txt
     - name: Run django tests
       run: |
-        cd cmapp
+        cd cmproject
         python manage.py test -v 2
