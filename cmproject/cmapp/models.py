@@ -25,4 +25,4 @@ class Task(models.Model):
         return title
 
     class Meta:
-        ordering = ['cmTitle']
+        ordering = ['id']
